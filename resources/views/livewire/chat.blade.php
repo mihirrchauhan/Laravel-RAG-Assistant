@@ -44,48 +44,49 @@
             flex-direction: column;
             gap: 14px;
         }
-.row {
-    display: flex;
-    width: 100%;
-    align-items: flex-end;
-    gap: 10px;
-}
 
-/* LEFT SIDE (AI) */
-.row.ai {
-    justify-content: flex-start;
-}
+        .row {
+            display: flex;
+            width: 100%;
+            align-items: flex-end;
+            gap: 10px;
+        }
 
-/* RIGHT SIDE (USER) */
-.row.user {
-    justify-content: flex-end;
-}
+        /* LEFT SIDE (AI) */
+        .row.ai {
+            justify-content: flex-start;
+        }
 
-/* BUBBLE (AUTO SIZE FIX) */
-.bubble {
-    display: inline-block;
-    max-width: 70%;
-    padding: 10px 14px;
-    border-radius: 14px;
-    line-height: 1.5;
-    font-size: 14px;
-    /* white-space: pre-wrap; */
-    word-break: break-word;
-}
+        /* RIGHT SIDE (USER) */
+        .row.user {
+            justify-content: flex-end;
+        }
 
-/* USER */
-.row.user .bubble {
-    background: #2563eb;
-    color: white;
-    border-top-right-radius: 6px;
-}
+        /* BUBBLE (AUTO SIZE FIX) */
+        .bubble {
+            display: inline-block;
+            max-width: 70%;
+            padding: 10px 14px;
+            border-radius: 14px;
+            line-height: 1.5;
+            font-size: 14px;
+            /* white-space: pre-wrap; */
+            word-break: break-word;
+        }
 
-/* AI */
-.row.ai .bubble {
-    background: #111827;
-    border: 1px solid #1f2937;
-    border-top-left-radius: 6px;
-}
+        /* USER */
+        .row.user .bubble {
+            background: #2563eb;
+            color: white;
+            border-top-right-radius: 6px;
+        }
+
+        /* AI */
+        .row.ai .bubble {
+            background: #111827;
+            border: 1px solid #1f2937;
+            border-top-left-radius: 6px;
+        }
 
         /* Input */
         .composer {
@@ -123,27 +124,39 @@
     </div>
 
     <!-- Chat -->
-  <div class="chat-area">
-    @foreach($messages as $msg)
+    <div class="chat-area">
+        @foreach($messages as $msg)
 
         <div class="row {{ $msg['role'] === 'user' ? 'user' : 'ai' }}">
 
             @if($msg['role'] !== 'user')
-                <div class="avatar">AI</div>
+            <div class="avatar">AI</div>
             @endif
 
             <div class="bubble">
+
+                @if($msg['role'] === 'assistant')
+
+                <span wire:stream="assistant-{{ $loop->index }}">
+                    {{ trim($msg['content']) }}
+                </span>
+
+                @else
+
                 {{ trim($msg['content']) }}
+
+                @endif
+
             </div>
 
             @if($msg['role'] === 'user')
-                <div class="avatar">You</div>
+            <div class="avatar">You</div>
             @endif
 
         </div>
 
-    @endforeach
-</div>
+        @endforeach
+    </div>
 
     <!-- Input -->
     <div class="composer">
@@ -151,9 +164,14 @@
             type="text"
             wire:model="message"
             wire:keydown.enter="sendMessage"
+            wire:loading.attr="disabled"
             placeholder="Message AI..." />
 
-        <button wire:click="sendMessage">➤</button>
+        <button wire:click="sendMessage" wire:loading.attr="disabled">➤</button>
+         <span wire:loading>
+        AI is typing...
+    </span>
+
     </div>
 
 </div>
