@@ -1,176 +1,289 @@
-<div class="ai-shell">
+<div class="max-w-5xl mx-auto h-full md:h-[92vh] glass rounded-none md:rounded-[32px] shadow-2xl overflow-hidden flex flex-col">
 
-    <style>
-        body {
-            margin: 0;
-            background: #0b0f19;
-            font-family: ui-sans-serif, system-ui;
-        }
+    <!-- Header -->
 
-        .ai-shell {
-            max-width: 780px;
-            margin: 0 auto;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            background: #0f172a;
-            color: #e5e7eb;
-        }
+    <div class="px-6 py-5 border-b flex items-center justify-between">
 
-        /* Top bar */
-        .topbar {
-            display: flex;
-            justify-content: space-between;
-            padding: 14px 18px;
-            border-bottom: 1px solid #1f2937;
-            background: #0b1220;
-        }
+        <div class="flex items-center gap-4">
 
-        .brand {
-            font-weight: 600;
-        }
+            <div
+                class="w-12 h-12 rounded-2xl bg-indigo-600 text-white flex items-center justify-center shadow-xl">
 
-        .status {
-            font-size: 12px;
-            color: #22c55e;
-        }
+                🤖
 
-        /* Chat area */
-        .chat-area {
-            flex: 1;
-            overflow-y: auto;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-        }
+            </div>
 
-        .row {
-            display: flex;
-            width: 100%;
-            align-items: flex-end;
-            gap: 10px;
-        }
+            <div>
 
-        /* LEFT SIDE (AI) */
-        .row.ai {
-            justify-content: flex-start;
-        }
+                <h2 class="font-bold text-xl text-slate-800 dark:text-white">
+                    AI Assistant
+                </h2>
 
-        /* RIGHT SIDE (USER) */
-        .row.user {
-            justify-content: flex-end;
-        }
+                <p class="text-xs text-indigo-600 uppercase tracking-widest">
+                    Active System
+                </p>
 
-        /* BUBBLE (AUTO SIZE FIX) */
-        .bubble {
-            display: inline-block;
-            max-width: 70%;
-            padding: 10px 14px;
-            border-radius: 14px;
-            line-height: 1.5;
-            font-size: 14px;
-            /* white-space: pre-wrap; */
-            word-break: break-word;
-        }
+            </div>
 
-        /* USER */
-        .row.user .bubble {
-            background: #2563eb;
-            color: white;
-            border-top-right-radius: 6px;
-        }
+        </div>
 
-        /* AI */
-        .row.ai .bubble {
-            background: #111827;
-            border: 1px solid #1f2937;
-            border-top-left-radius: 6px;
-        }
+        <div class="flex gap-2">
 
-        /* Input */
-        .composer {
-            display: flex;
-            padding: 14px;
-            border-top: 1px solid #1f2937;
-            background: #0b1220;
-            gap: 10px;
-        }
+            <button id="themeBtn"
+                class="h-11 w-11 rounded-xl bg-slate-100 hover:bg-slate-200 transition">
 
-        .composer input {
-            flex: 1;
-            padding: 12px 14px;
-            border-radius: 10px;
-            border: 1px solid #1f2937;
-            background: #0f172a;
-            color: white;
-            outline: none;
-        }
+                🌙
 
-        .composer button {
-            width: 44px;
-            border-radius: 10px;
-            border: none;
-            background: #2563eb;
-            color: white;
-            cursor: pointer;
-        }
-    </style>
+            </button>
 
-    <!-- Top bar -->
-    <div class="topbar">
-        <div class="brand">AI Assistant</div>
-        <div class="status">● Online</div>
+            <button
+                onclick="window.location.reload()"
+                class="h-11 w-11 rounded-xl bg-red-100 hover:bg-red-200 transition">
+
+                🗑️
+
+            </button>
+
+        </div>
+
     </div>
 
-    <!-- Chat -->
-    <div class="chat-area">
-        @foreach($messages as $msg)
+    <!-- Chat Area -->
 
-        <div class="row {{ $msg['role'] === 'user' ? 'user' : 'ai' }}">
+    <div
+        id="chatBox"
+        class="flex-1 overflow-y-auto chat-scroll px-6 py-6 space-y-6">
+                @forelse($messages as $msg)
 
-            @if($msg['role'] !== 'user')
-            <div class="avatar">AI</div>
-            @endif
+            <div
+                class="message flex {{ $msg['role'] === 'user' ? 'justify-end' : 'justify-start' }}">
 
-            <div class="bubble">
+                @if($msg['role'] !== 'user')
 
-                @if($msg['role'] === 'assistant')
+                    <!-- AI Avatar -->
+                    <div class="flex items-end mr-3">
 
-                <span wire:stream="assistant-{{ $loop->index }}">
-                    {{ trim($msg['content']) }}
-                </span>
+                        <div
+                            class="w-10 h-10 rounded-2xl bg-indigo-600 text-white flex items-center justify-center shadow-lg">
 
-                @else
+                            🤖
 
-                {{ trim($msg['content']) }}
+                        </div>
+
+                    </div>
+
+                @endif
+
+
+                <!-- Message Bubble -->
+
+                <div
+                    class="max-w-[80%] rounded-3xl px-5 py-4 shadow-md
+
+                    {{ $msg['role'] === 'user'
+                        ? 'bg-indigo-600 text-white rounded-br-md'
+                        : 'bg-white text-slate-700 border border-slate-200 rounded-bl-md dark:bg-slate-800 dark:text-slate-100 dark:border-slate-700'
+                    }}">
+
+                    @if($msg['role'] === 'assistant')
+
+                        <div
+                            class="leading-7 whitespace-pre-wrap break-words"
+                            wire:stream="assistant-{{ $loop->index }}">
+
+                            {{ trim($msg['content']) }}
+
+                        </div>
+
+                    @else
+
+                        <div class="leading-7 whitespace-pre-wrap break-words">
+
+                            {{ trim($msg['content']) }}
+
+                        </div>
+
+                    @endif
+
+                    <div
+                        class="mt-3 text-[11px] opacity-60">
+
+                        {{ now()->format('h:i A') }}
+
+                    </div>
+
+                </div>
+
+
+                @if($msg['role'] === 'user')
+
+                    <!-- User Avatar -->
+
+                    <div class="flex items-end ml-3">
+
+                        <div
+                            class="w-10 h-10 rounded-2xl bg-slate-700 text-white flex items-center justify-center shadow-lg">
+
+                            👤
+
+                        </div>
+
+                    </div>
 
                 @endif
 
             </div>
 
-            @if($msg['role'] === 'user')
-            <div class="avatar">You</div>
-            @endif
+        @empty
+
+            <!-- Welcome Screen -->
+
+            <div class="flex flex-col items-center justify-center h-full py-24">
+
+                <div
+                    class="w-24 h-24 rounded-full bg-indigo-600 text-white text-4xl flex items-center justify-center shadow-xl">
+
+                    🤖
+
+                </div>
+
+                <h2 class="mt-6 text-3xl font-bold text-slate-800 dark:text-white">
+
+                    Welcome
+
+                </h2>
+
+                <p
+                    class="mt-2 text-slate-500 dark:text-slate-400 text-center max-w-md">
+
+                    Ask me anything. I can help with programming,
+                    Laravel, AI, writing, debugging, documentation,
+                    and much more.
+
+                </p>
+
+            </div>
+
+        @endforelse
+
+
+        <!-- Typing Indicator -->
+
+        <div
+            wire:loading.flex
+            wire:target="sendMessage"
+            class="items-center gap-3">
+
+            <div
+                class="w-10 h-10 rounded-2xl bg-indigo-600 text-white flex items-center justify-center">
+
+                🤖
+
+            </div>
+
+            <div
+                class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-3xl rounded-bl-md px-5 py-4 shadow">
+
+                <div class="flex gap-2 items-center">
+
+                    <span class="typing-dot"></span>
+                    <span class="typing-dot"></span>
+                    <span class="typing-dot"></span>
+
+                    <span
+                        class="text-xs text-slate-500 ml-2">
+
+                        AI is thinking...
+
+                    </span>
+
+                </div>
+
+            </div>
 
         </div>
 
-        @endforeach
     </div>
+        <!-- Composer -->
+    <div class="border-t border-slate-200 dark:border-slate-700 bg-white/80 dark:bg-slate-900/70 p-6">
 
-    <!-- Input -->
-    <div class="composer">
-        <input
-            type="text"
-            wire:model="message"
-            wire:keydown.enter="sendMessage"
-            wire:loading.attr="disabled"
-            placeholder="Message AI..." />
+        <div class="relative">
 
-        <button wire:click="sendMessage" wire:loading.attr="disabled">➤</button>
-         <span wire:loading>
-        AI is typing...
-    </span>
+            <input
+                id="messageInput"
+                type="text"
+                wire:model="message"
+                wire:keydown.enter="sendMessage"
+                wire:loading.attr="disabled"
+                autocomplete="off"
+                placeholder="Message AI Assistant..."
+                class="w-full rounded-2xl border border-slate-300 dark:border-slate-700
+                       bg-slate-100 dark:bg-slate-800
+                       py-4 pl-6 pr-16
+                       outline-none
+                       focus:ring-2
+                       focus:ring-indigo-500
+                       dark:text-white">
+
+            <button
+                wire:click="sendMessage"
+                wire:loading.attr="disabled"
+                class="absolute right-2 top-2 h-12 w-12 rounded-xl
+                       bg-indigo-600 hover:bg-indigo-700
+                       text-white transition shadow-lg
+                       flex items-center justify-center">
+
+                ➤
+
+            </button>
+
+        </div>
+
+        <!-- Quick Prompt Chips -->
+
+        <div class="flex gap-3 mt-5 overflow-x-auto pb-2">
+
+            <button
+                class="chip"
+                onclick="fillMessage('What can you do?')">
+
+                🚀 Capabilities
+
+            </button>
+
+            <button
+                class="chip"
+                onclick="fillMessage('Explain Laravel Service Container')">
+
+                💻 Laravel
+
+            </button>
+
+            <button
+                class="chip"
+                onclick="fillMessage('Write PHP code')">
+
+                🐘 PHP
+
+            </button>
+
+            <button
+                class="chip"
+                onclick="fillMessage('Explain AI in simple words')">
+
+                🤖 AI
+
+            </button>
+
+            <button
+                class="chip"
+                onclick="fillMessage('Tell me a joke')">
+
+                😂 Joke
+
+            </button>
+
+        </div>
 
     </div>
 
