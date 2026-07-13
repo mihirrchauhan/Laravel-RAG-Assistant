@@ -88,7 +88,7 @@
                     @if($msg['role'] === 'assistant')
 
                         <div
-                            class="leading-7 whitespace-pre-wrap break-words"
+                            class="leading-7 break-words"
                             wire:stream="assistant-{{ $loop->index }}">
 
                             {{ trim($msg['content']) }}
@@ -97,7 +97,7 @@
 
                     @else
 
-                        <div class="leading-7 whitespace-pre-wrap break-words">
+                        <div class="leading-7 break-words">
 
                             {{ trim($msg['content']) }}
 
