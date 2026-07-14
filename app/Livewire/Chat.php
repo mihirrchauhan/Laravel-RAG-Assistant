@@ -53,6 +53,7 @@ class Chat extends Component
                     content: $this->messages[$assistantIndex]['content'],
                     replace: true,
                 );
+                logger($this->messages[$assistantIndex]['content']);
             }
         } catch (\Throwable $e) {
 
