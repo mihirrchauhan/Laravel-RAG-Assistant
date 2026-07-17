@@ -13,6 +13,11 @@ class AuthController extends Controller
         return view('admin.auth.login');
     }
 
+    public function home()
+    {
+        return view('admin.auth.login');
+    }
+
     public function login(Request $request)
     {
         $credentials = $request->validate([
@@ -23,6 +28,7 @@ class AuthController extends Controller
         if (Auth::attempt($credentials)) {
 
             $request->session()->regenerate();
+            $request->session()->forget('url.intended');
 
             return redirect()->intended('/admin/dashboard');
         }
