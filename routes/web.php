@@ -36,9 +36,7 @@ Route::prefix('admin')->group(function () {
 
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
 
-        Route::post('/logout', [AuthController::class, 'logout'])
-            ->name('admin.logout');
-
+        Route::post('/logout', [AuthController::class, 'logout'])->name('admin.logout');
     });
 
 });
