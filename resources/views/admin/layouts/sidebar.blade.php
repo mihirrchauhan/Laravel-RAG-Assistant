@@ -32,7 +32,7 @@
           </a>
         </li>
         <li class="nav-title">UI Elements</li>
-        <li class="nav-item">
+        <!-- <li class="nav-item">
           <a class="nav-link" href="charts.html">
             <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
               <path fill="var(--ci-primary-color, currentcolor)" d="M105.361 398.32A195.891 195.891 0 0 1 343.42 91.125l23.256-23.255A227.875 227.875 0 0 0 82.733 420.948 228.03 228.03 0 0 0 366.24 452.1l-23.312-23.312c-75.028 43.98-173.271 33.829-237.567-30.468" class="ci-primary" />
@@ -40,8 +40,8 @@
             </svg>
             Charts
           </a>
-        </li>
-        <li class="nav-group">
+        </li> -->
+        <!-- <li class="nav-group">
           <a class="nav-link nav-group-toggle" href="#">
             <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
               <path fill="var(--ci-primary-color, currentcolor)" d="m491.693 256.705-54.957-49.461 16.407-13.406a80.5 80.5 0 0 0 18.363-21.522c18.148-31.441 12.867-70.042-13.144-96.052s-64.612-31.291-96.051-13.142a80.5 80.5 0 0 0-21.52 18.362l-13.408 16.407-49.461-54.956-.579-.611a24.03 24.03 0 0 0-33.941 0l-65.6 65.605 1.19 23.7 33.108 27.056a48.6 48.6 0 0 1 11.079 12.889c10.807 18.722 7.57 41.8-8.056 57.426s-38.7 18.862-57.426 8.058a48.7 48.7 0 0 1-12.9-11.086l-27.047-33.1-23.7-1.189-71.26 71.26a24 24 0 0 0 0 33.942l175.357 175.359a80 80 0 0 0 113.138 0L492.3 291.225a24.03 24.03 0 0 0 0-33.94ZM288.657 449.617a48 48 0 0 1-67.883 0L51.069 279.911l53.1-53.095 15.91 19.473.1.119a80.5 80.5 0 0 0 21.521 18.363c31.441 18.149 70.041 12.867 96.052-13.144s31.291-64.61 13.143-96.05a80.5 80.5 0 0 0-18.363-21.521l-19.591-16.01 47.124-47.124 56.018 62.241 24.282-.579 25.062-30.67a48.6 48.6 0 0 1 12.888-11.078c18.722-10.807 41.8-7.569 57.426 8.056s18.864 38.7 8.057 57.426a48.6 48.6 0 0 1-11.079 12.889l-30.67 25.061-.58 24.282 62.243 56.018Z" class="ci-primary" />
@@ -204,8 +204,8 @@
               </a>
             </li>
           </ul>
-        </li>
-        <li class="nav-group">
+        </li> -->
+        <!-- <li class="nav-group">
           <a class="nav-link nav-group-toggle" href="#">
             <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
               <path fill="var(--ci-primary-color, currentcolor)" d="M112 152h288v32H112zm0 88h288v32H112zm0 88h152v32H112z" class="ci-primary" />
@@ -379,37 +379,37 @@
               </a>
             </li>
           </ul>
-        </li>
-        <li class="nav-group">
+        </li> -->
+         <li class="nav-group">
           <a class="nav-link nav-group-toggle" href="#">
             <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
               <path fill="var(--ci-primary-color, currentcolor)" d="M494 198.671a40.54 40.54 0 0 0-32.174-27.592l-115.909-18.837-53.732-104.414a40.7 40.7 0 0 0-72.37 0l-53.732 104.414-115.907 18.837a40.7 40.7 0 0 0-22.364 68.827l82.7 83.368-17.9 116.055a40.672 40.672 0 0 0 58.548 42.538L256 428.977l104.843 52.89a40.69 40.69 0 0 0 58.548-42.538l-17.9-116.055 82.7-83.368A40.54 40.54 0 0 0 494 198.671m-32.53 18.7L367.4 312.2l20.364 132.01a8.671 8.671 0 0 1-12.509 9.088L256 393.136 136.744 453.3a8.671 8.671 0 0 1-12.509-9.088L144.6 312.2l-94.069-94.83a8.7 8.7 0 0 1 4.778-14.706l131.841-21.426 61.119-118.767a8.694 8.694 0 0 1 15.462 0l61.119 118.767 131.841 21.426a8.7 8.7 0 0 1 4.778 14.706Z" class="ci-primary" />
             </svg>
-            Icons
+            Knowledge Base
           </a>
           <ul class="nav-group-items compact">
             <li class="nav-item">
               <a class="nav-link" href="icons/coreui-icons-free.html">
                 <span class="nav-icon"><span class="nav-icon-bullet"></span></span>
-                CoreUI Icons
+                Documents
                 <span class="badge badge-sm bg-success ms-auto">Free</span>
               </a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="icons/coreui-icons-brand.html">
                 <span class="nav-icon"><span class="nav-icon-bullet"></span></span>
-                CoreUI Icons - Brand
+                Collections
               </a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="icons/coreui-icons-flag.html">
                 <span class="nav-icon"><span class="nav-icon-bullet"></span></span>
-                CoreUI Icons - Flag
+                Embeddings
               </a>
             </li>
           </ul>
         </li>
-        <li class="nav-item">
+        <!--<li class="nav-item">
           <a class="nav-link" href="widgets.html">
             <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
               <path fill="var(--ci-primary-color, currentcolor)" d="M472 40H40a24.03 24.03 0 0 0-24 24v384a24.03 24.03 0 0 0 24 24h432a24.03 24.03 0 0 0 24-24V64a24.03 24.03 0 0 0-24-24m-8 400H48V72h416Z" class="ci-primary" />
@@ -515,7 +515,7 @@
             </svg>
             Try CoreUI PRO
           </a>
-        </li>
+        </li> -->
       </ul>
       <div class="sidebar-footer border-top d-none d-md-flex">
         <button class="sidebar-toggler" type="button" data-coreui-toggle="unfoldable"></button>
