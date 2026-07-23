@@ -4,7 +4,7 @@ use App\Livewire\Chat;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\DashboardController;
-
+use App\Http\Controllers\Admin\KnowledgeBaseController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,6 +35,8 @@ Route::prefix('admin')->group(function () {
     Route::middleware('auth')->group(function () {
 
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
+        Route::get('/documents', [KnowledgeBaseController::class, 'documents'])->name('admin.documents');
+
 
         Route::post('/logout', [AuthController::class, 'logout'])->name('admin.logout');
     });
