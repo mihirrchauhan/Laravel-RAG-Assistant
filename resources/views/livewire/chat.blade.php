@@ -92,6 +92,108 @@ use Illuminate\Support\Str;
             border-top-left-radius: 6px;
         }
 
+        /* Markdown Styling */
+        .bubble h1, .bubble h2, .bubble h3, .bubble h4, .bubble h5, .bubble h6 {
+            margin: 10px 0 8px 0;
+            font-weight: 600;
+            line-height: 1.3;
+        }
+
+        .bubble h1 { font-size: 1.5em; }
+        .bubble h2 { font-size: 1.3em; }
+        .bubble h3 { font-size: 1.1em; }
+        .bubble h4, .bubble h5, .bubble h6 { font-size: 1em; }
+
+        .bubble p {
+            margin: 6px 0;
+        }
+
+        .bubble ul, .bubble ol {
+            margin: 8px 0;
+            padding-left: 24px;
+        }
+
+        .bubble li {
+            margin: 4px 0;
+        }
+
+        .bubble code {
+            background: #1f2937;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            color: #fbbf24;
+        }
+
+        .bubble pre {
+            background: #1f2937;
+            padding: 10px;
+            border-radius: 6px;
+            overflow-x: auto;
+            margin: 8px 0;
+            border: 1px solid #374151;
+        }
+
+        .bubble pre code {
+            background: none;
+            padding: 0;
+            color: #e5e7eb;
+            font-size: 0.85em;
+            line-height: 1.4;
+        }
+
+        .bubble blockquote {
+            border-left: 3px solid #3b82f6;
+            padding-left: 12px;
+            margin: 8px 0;
+            color: #9ca3af;
+            font-style: italic;
+        }
+
+        .bubble strong {
+            font-weight: 600;
+            color: #f3f4f6;
+        }
+
+        .bubble em {
+            font-style: italic;
+        }
+
+        .bubble a {
+            color: #3b82f6;
+            text-decoration: none;
+        }
+
+        .bubble a:hover {
+            text-decoration: underline;
+        }
+
+        .bubble hr {
+            border: none;
+            border-top: 1px solid #374151;
+            margin: 12px 0;
+        }
+
+        .bubble table {
+            border-collapse: collapse;
+            margin: 8px 0;
+            width: 100%;
+            font-size: 0.9em;
+        }
+
+        .bubble table th,
+        .bubble table td {
+            border: 1px solid #374151;
+            padding: 6px 8px;
+            text-align: left;
+        }
+
+        .bubble table th {
+            background: #1f2937;
+            font-weight: 600;
+        }
+
         /* Input */
         .composer {
             display: flex;
