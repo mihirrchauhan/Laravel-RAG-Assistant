@@ -17,11 +17,7 @@ use App\Http\Controllers\Admin\KnowledgeBaseController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('/chat', Chat::class);
+Route::get('/', Chat::class);
 
 Route::prefix('admin')->group(function () {
 
