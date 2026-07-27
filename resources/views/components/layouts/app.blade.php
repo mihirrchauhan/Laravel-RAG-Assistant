@@ -4,13 +4,129 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Livewire App</title>
+    <title>Laravel RAG Assistant</title>
     <script src="https://cdn.tailwindcss.com"></script>
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
+        <!-- Highlight.js -->
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/github-dark.min.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+
+<!-- Marked -->
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+<!-- DOMPurify -->
+<script src="https://cdn.jsdelivr.net/npm/dompurify@3.2.6/dist/purify.min.js"></script>
+
+<!-- Alpine (if not already included) -->
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
     <style>
+
+        .markdown-body {
+    line-height: 1.7;
+    font-size: 15px;
+}
+
+.markdown-body h1,
+.markdown-body h2,
+.markdown-body h3,
+.markdown-body h4 {
+    margin-top: 18px;
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.markdown-body p {
+    margin: 10px 0;
+}
+
+.markdown-body ul,
+.markdown-body ol {
+    padding-left: 24px;
+    margin: 12px 0;
+}
+
+.markdown-body ul {
+    list-style: disc;
+}
+
+.markdown-body ol {
+    list-style: decimal;
+}
+
+.markdown-body li {
+    margin: 6px 0;
+}
+
+.markdown-body blockquote {
+    border-left: 4px solid #3b82f6;
+    padding-left: 16px;
+    color: #9ca3af;
+    margin: 16px 0;
+}
+
+.markdown-body pre {
+    background: #0d1117;
+    border-radius: 10px;
+    padding: 16px;
+    overflow-x: auto;
+    margin: 14px 0;
+}
+
+.markdown-body pre code {
+    background: transparent;
+    color: inherit;
+    font-size: 14px;
+}
+
+.markdown-body code:not(pre code) {
+    background: #1f2937;
+    padding: 2px 6px;
+    border-radius: 5px;
+    color: #fbbf24;
+}
+
+.markdown-body table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    display: block;
+    overflow-x: auto;
+}
+
+.markdown-body th,
+.markdown-body td {
+    border: 1px solid #374151;
+    padding: 8px 12px;
+}
+
+.markdown-body th {
+    background: #1f2937;
+}
+
+.markdown-body img {
+    max-width: 100%;
+    border-radius: 8px;
+}
+
+.markdown-body a {
+    color: #60a5fa;
+    text-decoration: none;
+}
+
+.markdown-body a:hover {
+    text-decoration: underline;
+}
+
+.markdown-body hr {
+    border: none;
+    border-top: 1px solid #374151;
+    margin: 20px 0;
+}
         body {
             font-family: 'Inter', sans-serif;
             background: linear-gradient(135deg, #EEF2FF, #C7D2FE);
@@ -217,15 +333,23 @@
     @livewireScripts
 </body>
 <script>
-    document.addEventListener('livewire:init', () => {
+document.addEventListener('livewire:navigated', renderMarkdown);
 
-        Livewire.on('generate-ai', () => {
+document.addEventListener('livewire:update', renderMarkdown);
 
-            Livewire.dispatch('start-stream');
+function renderMarkdown() {
+    document.querySelectorAll('.markdown-body').forEach(el => {
+        const markdown = el.dataset.markdown;
 
+        if (!markdown) return;
+
+        el.innerHTML = DOMPurify.sanitize(marked.parse(markdown));
+
+        el.querySelectorAll('pre code').forEach(block => {
+            hljs.highlightElement(block);
         });
-
     });
+}
 </script>
 
 </html>

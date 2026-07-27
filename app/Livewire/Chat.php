@@ -19,7 +19,7 @@ class Chat extends Component
 
     public function sendMessage(GroqService $groq)
     {
-        $this->message = trim($this->message);
+        $this->message = $this->message;
 
         if ($this->message === '') {
             return;
