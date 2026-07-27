@@ -93,22 +93,41 @@ use Illuminate\Support\Str;
         }
 
         /* Markdown Styling */
-        .bubble h1, .bubble h2, .bubble h3, .bubble h4, .bubble h5, .bubble h6 {
+        .bubble h1,
+        .bubble h2,
+        .bubble h3,
+        .bubble h4,
+        .bubble h5,
+        .bubble h6 {
             margin: 10px 0 8px 0;
             font-weight: 600;
             line-height: 1.3;
         }
 
-        .bubble h1 { font-size: 1.5em; }
-        .bubble h2 { font-size: 1.3em; }
-        .bubble h3 { font-size: 1.1em; }
-        .bubble h4, .bubble h5, .bubble h6 { font-size: 1em; }
+        .bubble h1 {
+            font-size: 1.5em;
+        }
+
+        .bubble h2 {
+            font-size: 1.3em;
+        }
+
+        .bubble h3 {
+            font-size: 1.1em;
+        }
+
+        .bubble h4,
+        .bubble h5,
+        .bubble h6 {
+            font-size: 1em;
+        }
 
         .bubble p {
             margin: 6px 0;
         }
 
-        .bubble ul, .bubble ol {
+        .bubble ul,
+        .bubble ol {
             margin: 8px 0;
             padding-left: 24px;
         }
@@ -239,16 +258,19 @@ use Illuminate\Support\Str;
             <div class="avatar">AI</div>
             @endif
 
-            <div class="bubble">
-                {!! Str::markdown(
-                $msg['content'],
-                [
-                'html_input' => 'strip',
-                'allow_unsafe_links' => false,
-                ]
-                ) !!}
-            </div>
+            <div class="bubble markdown-body"
+                x-data
+                x-init="
+        $nextTick(() => {
+            const html = DOMPurify.sanitize(marked.parse(@js($msg['content'])));
+            $el.innerHTML = html;
 
+            $el.querySelectorAll('pre code').forEach((block) => {
+                hljs.highlightElement(block);
+            });
+        });
+     ">
+            </div>
             @if($msg['role'] === 'user')
             <div class="avatar">You</div>
             @endif
