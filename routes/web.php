@@ -32,7 +32,7 @@ Route::prefix('admin')->group(function () {
 
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
         Route::get('/documents', [KnowledgeBaseController::class, 'documents'])->name('admin.documents');
-
+        Route::get('/documents/create', [KnowledgeBaseController::class, 'create'])->name('admin.documents.create');
 
         Route::post('/logout', [AuthController::class, 'logout'])->name('admin.logout');
     });

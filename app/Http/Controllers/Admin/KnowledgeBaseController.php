@@ -11,4 +11,9 @@ class KnowledgeBaseController extends Controller
     {
         return view('admin.pages.documents');
     }
+
+    public function create()
+    {
+        return view('admin.pages.documents-create');
+    }
 }
