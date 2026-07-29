@@ -45,7 +45,7 @@
           @include('admin.layouts.header')
 
       <div class="body flex-grow-1">
-        <div class="container-lg px-4">
+        <div class="container-lg">
           @yield('admin-content')
         </div>
       </div>
