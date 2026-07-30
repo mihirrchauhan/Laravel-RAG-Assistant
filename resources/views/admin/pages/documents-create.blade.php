@@ -19,62 +19,51 @@
         </a>
     </div>
 
-    <div class="card">
+    <div class="card shadow-sm border-0">
+        <div class="card-header bg-white border-bottom py-3">
+            <div class="d-flex justify-content-between align-items-start flex-column flex-md-row gap-3">
+                <div>
+                    <h5 class="mb-1">Upload Knowledge Document</h5>
+                    <p class="text-muted mb-0">Add a new document to the knowledge base for retrieval-augmented generation.</p>
+                </div>
+            </div>
+        </div>
         <div class="card-body">
             <form method="POST" action="#" enctype="multipart/form-data">
                 @csrf
 
-                <div class="row">
-                    <div class="col-md-6 mb-3">
+                <div class="row g-3">
+                    <div class="col-md-6">
                         <label class="form-label">Document Name</label>
-                        <input type="text" class="form-control" name="title" required>
+                        <input type="text" class="form-control" name="title" placeholder="Enter document title" required>
                     </div>
 
-                    <div class="col-md-6 mb-3">
+                    <div class="col-md-6">
                         <label class="form-label">Category</label>
-                        <select class="form-select" name="category">
-                            <option>General</option>
-                            <option>Laravel</option>
-                            <option>PHP</option>
-                            <option>Python</option>
-                            <option>AI</option>
-                        </select>
+                        <input type="text" class="form-control" name="category" placeholder="Enter category (e.g. General)" value="General">
+                    </div>
+
+                    <div class="col-12">
+                        <label class="form-label">Description</label>
+                        <textarea class="form-control" rows="4" name="description" placeholder="Describe the document contents"></textarea>
+                    </div>
+
+                    <div class="col-12">
+                        <label class="form-label">Document File</label>
+                        <input type="file" class="form-control" name="document" accept=".pdf,.doc,.docx,.txt" required>
+                        <div class="mt-2 d-flex flex-wrap gap-2">
+                            <span class="badge bg-light text-dark">PDF</span>
+                            <span class="badge bg-light text-dark">DOC</span>
+                            <span class="badge bg-light text-dark">DOCX</span>
+                            <span class="badge bg-light text-dark">TXT</span>
+                            <small class="text-muted">Max 20 MB</small>
+                        </div>
                     </div>
                 </div>
 
-                <div class="mb-3">
-                    <label class="form-label">Description</label>
-                    <textarea class="form-control" rows="3" name="description"></textarea>
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label">Document File</label>
-                    <input type="file" class="form-control" name="document" accept=".pdf,.doc,.docx,.txt" required>
-                    <small class="text-body-secondary">
-                        Supported: PDF, DOC, DOCX, TXT (Max 20 MB)
-                    </small>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <label class="form-label">Chunk Size</label>
-                        <input type="number" class="form-control" name="chunk_size" value="500">
-                    </div>
-
-                    <div class="col-md-6 mb-3">
-                        <label class="form-label">Chunk Overlap</label>
-                        <input type="number" class="form-control" name="chunk_overlap" value="50">
-                    </div>
-                </div>
-
-                <div class="form-check mb-4">
-                    <input class="form-check-input" type="checkbox" checked name="generate_embeddings">
-                    <label class="form-check-label">Generate embeddings after upload</label>
-                </div>
-
-                <div class="d-flex gap-2">
+                <div class="d-flex justify-content-end gap-2 mt-4">
+                    <a href="{{ route('admin.documents') }}" class="btn btn-outline-secondary">Cancel</a>
                     <button type="submit" class="btn btn-primary">Upload & Index</button>
-                    <a href="{{ route('admin.documents') }}" class="btn btn-secondary">Cancel</a>
                 </div>
             </form>
         </div>
