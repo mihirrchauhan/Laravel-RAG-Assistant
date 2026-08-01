@@ -34,4 +34,14 @@ return [
         'api_key' => env('GROQ_API_KEY'),
     ],
 
+    'ollama' => [
+        'embedding_url' => env('OLLAMA_EMBEDDING_URL', 'http://localhost:11434/api/embeddings'),
+        'embedding_model' => env('OLLAMA_EMBEDDING_MODEL', 'nomic-embed-text'),
+    ],
+
+    'qdrant' => [
+        'url' => env('QDRANT_URL', 'http://localhost:6333'),
+        'vector_size' => env('QDRANT_VECTOR_SIZE', 768),
+    ],
+
 ];

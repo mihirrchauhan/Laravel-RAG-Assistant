@@ -30,7 +30,7 @@ class AuthController extends Controller
             $request->session()->regenerate();
             $request->session()->forget('url.intended');
 
-            return redirect()->intended('/admin/dashboard');
+            return redirect()->to('/admin/dashboard');
         }
 
         return back()->with('error', 'Invalid credentials.');

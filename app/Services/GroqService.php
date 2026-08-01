@@ -45,6 +45,7 @@ PROMPT
                 'model' => 'llama-3.3-70b-versatile',
                 'messages' => $messages,
                 'stream' => true,
+                'temperature' => 0,
             ]);
 
         if ($response->failed()) {

@@ -2,7 +2,7 @@
 
 namespace App\Livewire;
 
-use App\Services\GroqService;
+use App\Services\RagService;
 use Livewire\Component;
 
 class Chat extends Component
@@ -17,18 +17,18 @@ class Chat extends Component
         return view('livewire.chat');
     }
 
-    public function sendMessage(GroqService $groq)
+    public function sendMessage(RagService $ragService)
     {
-        $this->message = $this->message;
+        $userMessage = $this->message;
 
-        if ($this->message === '') {
+        if ($userMessage === '') {
             return;
         }
 
         // Add user message
         $this->messages[] = [
             'role' => 'user',
-            'content' => $this->message,
+            'content' => $userMessage,
         ];
 
         $this->message = '';
@@ -43,20 +43,16 @@ class Chat extends Component
         $this->streaming = true;
         try {
 
-            foreach ($groq->chatStream($this->messages) as $chunk) {
+            $answer = $ragService->answerQuestion($userMessage);
 
-                $this->messages[$assistantIndex]['content'] .= $chunk;
+            $this->messages[$assistantIndex]['content'] = $answer;
 
-                // Stream only this message to the browser
-                $this->stream(
-                    to: "assistant-{$assistantIndex}",
-                    content: $this->messages[$assistantIndex]['content'],
-                    replace: true,
-                );
-                logger($this->messages[$assistantIndex]['content']);
-            }
+            $this->stream(
+                to: "assistant-{$assistantIndex}",
+                content: $this->messages[$assistantIndex]['content'],
+                replace: true,
+            );
         } catch (\Throwable $e) {
-
             $this->messages[$assistantIndex]['content'] =
                 'Sorry, something went wrong.';
 

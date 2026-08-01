@@ -21,6 +21,8 @@ Route::get('/', Chat::class);
 
 Route::prefix('admin')->group(function () {
 
+    Route::get('/health', [KnowledgeBaseController::class, 'health'])->name('admin.health');
+
     Route::middleware('guest')->group(function () {
 
         Route::get('/login', [AuthController::class, 'showLogin'])->name('admin.login');
@@ -33,6 +35,10 @@ Route::prefix('admin')->group(function () {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
         Route::get('/documents', [KnowledgeBaseController::class, 'documents'])->name('admin.documents');
         Route::get('/documents/create', [KnowledgeBaseController::class, 'create'])->name('admin.documents.create');
+        Route::post('/documents', [KnowledgeBaseController::class, 'store'])->name('admin.documents.store');
+        Route::get('/documents/{document}', [KnowledgeBaseController::class, 'show'])->name('admin.documents.show');
+        Route::post('/documents/{document}/reindex', [KnowledgeBaseController::class, 'reindex'])->name('admin.documents.reindex');
+        Route::delete('/documents/{document}', [KnowledgeBaseController::class, 'destroy'])->name('admin.documents.destroy');
 
         Route::post('/logout', [AuthController::class, 'logout'])->name('admin.logout');
     });
