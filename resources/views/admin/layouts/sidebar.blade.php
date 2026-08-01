@@ -28,7 +28,15 @@
               d="M256 48C141.1 48 48 141.1 48 256s93.1 208 208 208 208-93.1 208-208S370.9 48 256 48zm0 32c97.2 0 176 78.8 176 176S353.2 432 256 432 80 353.2 80 256 158.8 80 256 80zm96 80-112 80a24 24 0 1 0 32 32l80-112z" />
           </svg>
           Dashboard
-          <span class="badge badge-sm bg-info ms-auto">NEW</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ route('admin.documents') }}">
+          <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+            <path fill="var(--ci-primary-color, currentcolor)" d="M416 64H160a48 48 0 0 0-48 48v288a48 48 0 0 0 48 48h256a48 48 0 0 0 48-48V112a48 48 0 0 0-48-48zm0 336H160V112h256z" />
+          </svg>
+          Knowledge Base
+          <span class="badge badge-sm bg-info ms-auto">RAG</span>
         </a>
       </li>
       <li class="nav-title">UI Elements</li>
