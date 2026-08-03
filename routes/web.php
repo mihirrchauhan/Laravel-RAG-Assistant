@@ -19,6 +19,10 @@ use App\Http\Controllers\Admin\KnowledgeBaseController;
 
 Route::get('/', Chat::class);
 
+Route::fallback(function () {
+    return redirect('/');
+});
+
 Route::prefix('admin')->group(function () {
 
     Route::get('/health', [KnowledgeBaseController::class, 'health'])->name('admin.health');
