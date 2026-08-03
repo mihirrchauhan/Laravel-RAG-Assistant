@@ -39,7 +39,7 @@
           <span class="badge badge-sm bg-info ms-auto">RAG</span>
         </a>
       </li>
-      <li class="nav-title">UI Elements</li>
+      <!-- <li class="nav-title">UI Elements</li> -->
       <!-- <li class="nav-item">
           <a class="nav-link" href="charts.html">
             <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
@@ -388,7 +388,7 @@
             </li>
           </ul>
         </li> -->
-      <li class="nav-group">
+      <!-- <li class="nav-group">
         <a class="nav-link nav-group-toggle" href="#">
           <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
             <path fill="var(--ci-primary-color, currentcolor)"
@@ -404,6 +404,8 @@
               <span class="badge badge-sm bg-success ms-auto">Free</span>
             </a>
           </li>
+          </ul>
+      </li> -->
           <!-- <li class="nav-item">
               <a class="nav-link" href="icons/coreui-icons-brand.html">
                 <span class="nav-icon"><span class="nav-icon-bullet"></span></span>
@@ -416,8 +418,7 @@
                 Embeddings
               </a>
             </li> -->
-        </ul>
-      </li>
+        
       <!--<li class="nav-item">
           <a class="nav-link" href="widgets.html">
             <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">

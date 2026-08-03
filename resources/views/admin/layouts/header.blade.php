@@ -5,7 +5,7 @@
                    <path fill="var(--ci-primary-color, currentcolor)" d="M80 96h352v32H80zm0 144h352v32H80zm0 144h352v32H80z" class="ci-primary" />
                </svg>
            </button>
-           <ul class="header-nav ms-auto">
+           <!-- <ul class="header-nav ms-auto">
                <li class="nav-item">
                    <a class="nav-link" href="#">
                        <svg class="icon icon-lg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
@@ -27,7 +27,7 @@
                        </svg>
                    </a>
                </li>
-           </ul>
+           </ul> -->
            <ul class="header-nav">
                <li class="nav-item py-1">
                    <div class="vr h-100 mx-2 text-body text-opacity-75"></div>
@@ -70,7 +70,7 @@
                </li>
                <li class="nav-item dropdown">
                    <a class="nav-link py-0 pe-0" data-coreui-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                       <div class="avatar avatar-md"><img class="avatar-img" src="assets/img/avatars/8.jpg" alt="user@email.com"></div>
+                       <div class="avatar avatar-md"><img class="avatar-img" src="{{ asset('assets/img/avatars/3.jpg') }}" alt="user@email.com"></div>
                    </a>
                    <div class="dropdown-menu dropdown-menu-end pt-0">
                        <div class="dropdown-header bg-body-tertiary text-body-secondary fw-semibold rounded-top mb-2">Account</div>
@@ -153,12 +153,12 @@
                </li>
            </ul>
        </div>
-       <div class="container-fluid px-4">
+       <!-- <div class="container-fluid px-4">
            <nav aria-label="breadcrumb">
                <ol class="breadcrumb my-0">
                    <li class="breadcrumb-item"><a href="#">Home</a></li>
                    <li class="breadcrumb-item active"><span>Dashboard</span></li>
                </ol>
            </nav>
-       </div>
+       </div> -->
    </header>
