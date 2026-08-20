@@ -1,66 +1,203 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Laravel RAG Assistant
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+This project is a Laravel-based Retrieval-Augmented Generation (RAG) application that lets users chat with a knowledge base built from uploaded documents.
 
-## About Laravel
+## What is included
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- Livewire chat interface at the home route for asking questions over indexed document content
+- Admin knowledge-base panel for uploading, listing, viewing, reindexing, and deleting documents
+- Background document processing pipeline using Laravel queues
+- MySQL for metadata storage
+- Ollama for embedding generation
+- Qdrant for vector storage and similarity search
+- Groq for final answer generation
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Architecture
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- MySQL stores document metadata and file references
+- Qdrant stores vector embeddings and payload metadata for retrieval
+- Ollama generates embeddings with the `nomic-embed-text` model
+- Groq generates the final answer based on retrieved context
+- Laravel queues process document indexing asynchronously in the `documents` queue
 
-## Learning Laravel
+## Supported document types
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+The app validates uploads for:
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+- PDF
+- DOC
+- DOCX
+- TXT
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Prerequisites
 
-## Laravel Sponsors
+- PHP 8.1+
+- Composer
+- MySQL
+- Docker
+- Ollama
+- Qdrant
+- Groq API key
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## 1. Install PHP dependencies
 
-### Premium Partners
+```bash
+composer install
+```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+## 2. Configure environment variables
 
-## Contributing
+Copy the example environment file and update the values for your local setup:
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+```bash
+cp .env.example .env
+```
 
-## Code of Conduct
+Add or update the following values in `.env`:
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+```env
+APP_NAME=Laravel-RAG-Assistant
+APP_ENV=local
+APP_KEY=
+APP_DEBUG=true
+APP_URL=http://localhost
 
-## Security Vulnerabilities
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=laravel
+DB_USERNAME=root
+DB_PASSWORD=
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+QUEUE_CONNECTION=database
 
-## License
+GROQ_API_KEY=your_groq_key
+OLLAMA_EMBEDDING_URL=http://localhost:11434/api/embeddings
+OLLAMA_EMBEDDING_MODEL=nomic-embed-text
+QDRANT_URL=http://localhost:6333
+QDRANT_VECTOR_SIZE=768
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+> If you use a different queue driver, make sure the worker setup matches it. The app dispatches jobs to the `documents` queue, so a persistent queue backend such as `database` or `redis` is recommended for production-like local testing.
+
+## 3. Start dependencies
+
+### Start Ollama and Qdrant
+
+The project includes a Docker Compose setup for the vector and embedding services:
+
+```bash
+docker compose up -d
+```
+
+This starts:
+
+- Qdrant on `http://localhost:6333`
+- Ollama on `http://localhost:11434`
+- The embedding model `nomic-embed-text` is pulled automatically by the compose setup
+
+If you prefer to start Ollama manually:
+
+```bash
+ollama pull nomic-embed-text
+```
+
+## 4. Run database migrations
+
+```bash
+php artisan key:generate
+php artisan migrate
+```
+
+## 5. Run the app
+
+Start the Laravel app:
+
+```bash
+php artisan serve
+```
+
+Then open:
+
+- Chat UI: `http://localhost:8000/`
+- Admin login: `http://localhost:8000/admin/login`
+
+## 6. Start the background queue worker
+
+To process uploaded documents asynchronously:
+
+```bash
+php artisan queue:work --queue=documents
+```
+
+This is required for document indexing and embedding generation.
+
+## Admin panel overview
+
+Once logged in as an admin user, you can:
+
+- view the dashboard statistics
+- upload new documents to the knowledge base
+- browse uploaded documents
+- inspect document metadata and processing status
+- reindex a document
+- delete a document and its vector entries
+
+The main admin routes are:
+
+- `/admin/login`
+- `/admin/dashboard`
+- `/admin/documents`
+- `/admin/documents/create`
+- `/admin/health`
+
+## Health check
+
+There is a built-in health endpoint to verify service availability:
+
+```bash
+curl http://localhost:8000/admin/health
+```
+
+It checks whether:
+
+- Ollama is reachable and responding to embedding requests
+- Qdrant is reachable and serving collection metadata
+
+## Upload and indexing flow
+
+1. Upload a supported file from the admin area
+2. Laravel stores the file locally and creates a document record in MySQL
+3. The document is queued for background processing
+4. The job parses the document text
+5. Text is chunked into smaller segments
+6. Each chunk is embedded by Ollama
+7. Vectors are stored in Qdrant with document metadata in the payload
+8. Chat queries retrieve the best matching chunks from Qdrant
+9. Groq generates the final answer from the retrieved context
+
+## Document processing status
+
+The `rag_documents` table tracks document lifecycle states such as:
+
+- `pending`
+- `queued`
+- `processing`
+- `parsed`
+- `embedded`
+- `failed`
+
+## Testing
+
+Run the test suite with:
+
+```bash
+./vendor/bin/phpunit
+```
+
+## Notes
+
+- The live chat interface answers questions using relevant chunks from the indexed knowledge base.
+- The default app route `/` renders the chat UI.
+- Uploaded documents are stored under the local storage disk and their vector records are kept in Qdrant.
+- Reindexing is supported for refreshing embeddings after a document is updated or re-uploaded.
